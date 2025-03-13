@@ -1,0 +1,111 @@
+@font-face {
+    font-family: sushi;
+    src: url('media/HIROMISAKE.ttf');
+}
+
+html,body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: sushi;
+}
+
+/* ----------------firstScreen--------------- */
+
+#firstScreen{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(82,19,25,1) 0%, rgba(224,122,147,1) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s ease-in-out;
+}
+
+#firstScreenH1{
+    margin: 5vw;
+    font-size: 3.5vw;
+    text-shadow: 2px 2px 5px white;
+}
+
+#firstScreenH2{
+    font-size: 1vw;
+    animation: float 1.5s ease-in-out infinite alternate;
+    text-shadow: 2px 2px 5px white;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+/* ----------------StartScreen--------------- */
+
+@keyframes slideUpFirst {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes slideUpSecond {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.slide-up-first {
+    animation: slideUpFirst 1s forwards;
+}
+
+.slide-up-second {
+    animation: slideUpSecond 1s forwards;
+}
+
+#startScreen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: black;
+    transform: translateY(100%);
+    transition: transform 1s ease-in-out;
+}
+
+.show {
+    display: flex;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+#headline{
+    text-align: center;
+    margin-top: 10vh;
+    font-size: 6vw;
+    text-shadow: 2px 2px 5px white;
+}
+
+video{
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
