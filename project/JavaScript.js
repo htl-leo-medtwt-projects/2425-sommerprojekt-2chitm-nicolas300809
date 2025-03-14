@@ -11,3 +11,5 @@ document.addEventListener('keydown', function(event) {
         }, 1000);
     }
 });
+
+/* --------------------Game-------------------- */
