@@ -30,4 +30,15 @@ const img = document.getElementById("soundImage");
             img.src = "media/noSound.png";
         });
 
+document.getElementById('infoBox').style.display = 'none';
+function showInfoBox(){
+    document.getElementById('infoBox').style.display = 'none';
+}
+
+document.getElementById('gameScreen').style.display = 'none';
+function showGame(){
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('gameScreen').style.display = 'inline-block';
+}
+
 /* --------------------Game-------------------- */
