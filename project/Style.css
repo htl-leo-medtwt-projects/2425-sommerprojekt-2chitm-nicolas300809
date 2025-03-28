@@ -37,9 +37,10 @@ html,body{
 }
 
 #firstScreenH1{
-    margin: 5vw;
-    font-size: 3.5vw;
-    text-shadow: 2px 2px 5px white;
+    text-align: center;
+    font-size: 6vw;
+    color: var(--pink);
+    text-shadow: 2px 2px 5px var(--red);
     transition: all 1s;
 }
 
@@ -48,9 +49,11 @@ html,body{
 }
 
 #firstScreenH2{
-    font-size: 1vw;
+    text-align: center;
+    font-size: 1.5vw;
+    color: var(--red);
+    text-shadow: 2px 2px 5px var(--red);
     animation: float 1.5s ease-in-out infinite alternate;
-    text-shadow: 2px 2px 5px white;
 }
 
 @keyframes float {
@@ -80,6 +83,36 @@ html,body{
     to {
         transform: translateY(0);
     }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOutScale {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+.info-show {
+    animation: fadeInScale 0.3s ease-out forwards;
+}
+
+.info-hide {
+    animation: fadeOutScale 0.3s ease-out forwards;
 }
 
 .slide-up-first {
@@ -128,9 +161,9 @@ video{
     object-fit: cover;
 }
 
-/*Button von UIVERSE*/
+/*Buttons von UIVERSE*/
 
-button {
+#playButton {
     padding: 1.3em 3em;
     text-transform: uppercase;
     font-size: 2vw;
@@ -150,14 +183,14 @@ button {
     margin-right: auto;
   }
   
-  button:hover {
+  #playButton:hover {
     background-color: var(--red);
     box-shadow: 0px 15px 20px var(--red);
     color: #fff;
     transform: translateY(-7px);
   }
   
-  button:active {
+  #playButton:active {
     transform: translateY(-1px);
   }
 
@@ -206,3 +239,71 @@ button {
   #infoButton:active{
     transform: translateY(-1px);
   }
+
+  #infoBox{
+    background-color: var(--pink);
+    width: 50vw;
+    margin-left: 25vw;
+    margin-top: 5vh;
+    text-align: center;
+    padding: 2vw;
+    border-radius: 15px;
+    border: black solid 2px;
+    box-shadow: 0px 8px 15px var(--red);
+    font-size: 1.5vw;
+    position: fixed;
+    transition: all 0.3s ease 0s;
+    z-index: 5;
+  }
+
+  #infoBox:hover{
+    transform: translateY(-7px);
+  }
+
+  #infoBox:active{
+    transform: translateY(-1px);
+  }
+
+  #backButton{
+    padding: 1.3em 3em;
+    text-transform: uppercase;
+    font-size: 2vw;
+    letter-spacing: 0.2vw;
+    font-weight: 500;
+    color: #000;
+    background-color: var(--red);
+    border: 2px solid black;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    font-family: sushi;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4vh;
+  }
+
+  #backButton:hover {
+    box-shadow: 0px 15px 20px var(--red);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+  
+  #backButton:active {
+    transform: translateY(-1px);
+  }
+
+
+/*-------------Game----------- */
+
+#gameScreen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: var(--pink);
+    transform: translateY(100%); /* Startposition */
+    transition: transform 1s ease-in-out;
+}

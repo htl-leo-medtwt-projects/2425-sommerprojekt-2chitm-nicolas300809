@@ -31,14 +31,48 @@ const img = document.getElementById("soundImage");
         });
 
 document.getElementById('infoBox').style.display = 'none';
-function showInfoBox(){
-    document.getElementById('infoBox').style.display = 'none';
+function showInfoBox() {
+    let infoBox = document.getElementById('infoBox');
+
+    infoBox.style.display = 'inline-block';
+    infoBox.classList.remove('info-hide');
+    infoBox.classList.add('info-show');
+
+    document.getElementById('row').style.filter = 'blur(5px)';
+    document.getElementById('backgroundVid').style.filter = 'blur(5px)';
+    document.getElementById('playButton').style.filter = 'blur(5px)';
 }
 
-document.getElementById('gameScreen').style.display = 'none';
-function showGame(){
-    document.getElementById('startScreen').style.display = 'none';
-    document.getElementById('gameScreen').style.display = 'inline-block';
+
+function hideInfoBox() {
+    let infoBox = document.getElementById('infoBox');
+
+    infoBox.classList.remove('info-show');
+    infoBox.classList.add('info-hide');
+
+    setTimeout(() => {
+        infoBox.style.display = 'none';
+    }, 300);
+
+    document.getElementById('row').style.filter = 'blur(0px)';
+    document.getElementById('backgroundVid').style.filter = 'blur(0px)';
+    document.getElementById('playButton').style.filter = 'blur(0px)';
 }
+
+
+function showGame() {
+    let container1 = document.getElementById('startScreen');
+    let container2 = document.getElementById('gameScreen');
+
+    container1.style.transform = "translateY(-100%)"; 
+    container2.style.transform = "translateY(0%)"; 
+
+    setTimeout(() => {
+        container1.style.display = 'none';
+    }, 1000);
+}
+
+
+        
 
 /* --------------------Game-------------------- */
