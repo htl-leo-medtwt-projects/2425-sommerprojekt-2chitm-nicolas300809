@@ -76,3 +76,32 @@ function showGame() {
         
 
 /* --------------------Game-------------------- */
+
+document.addEventListener("DOMContentLoaded", function () {
+    const chefs = [
+        { id: "chef1", imgSrc: "media/chef1.png", name: "Chef A" },
+        { id: "chef2", imgSrc: "media/chef2.png", name: "Chef B" },
+        { id: "chef3", imgSrc: "media/chef3.png", name: "Chef C" },
+        { id: "chef4", imgSrc: "media/chef4.png", name: "Chef D" }
+    ];
+
+    const chefUpgradeScreen = document.getElementById("chefUpgradeScreen");
+    chefUpgradeScreen.innerHTML = "";
+
+    chefs.forEach(chef => {
+        const chefDiv = document.createElement("div");
+        chefDiv.classList.add("chef");
+
+        const img = document.createElement("img");
+        img.src = chef.imgSrc;
+        img.alt = chef.name;
+
+        const button = document.createElement("button");
+        button.textContent = "Upgrade " + chef.name;
+        button.classList.add("upgrade-button");
+
+        chefDiv.appendChild(img);
+        chefDiv.appendChild(button);
+        chefUpgradeScreen.appendChild(chefDiv);
+    });
+});
