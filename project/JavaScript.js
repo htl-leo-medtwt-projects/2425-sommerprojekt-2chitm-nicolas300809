@@ -142,6 +142,16 @@ document.addEventListener("DOMContentLoaded", function () {
 let sushiCount = 0;
 let sushiPerClick = 1;
 
-function clickSushi(){
+function clickSushi() {
     sushiCount += sushiPerClick;
+    document.getElementById("sushiOutput").innerHTML = `
+    <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
+    <p id="headerText">${sushiCount}</p>`;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("sushiOutput").innerHTML = `
+    <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
+    <p id="headerText">${sushiCount}</p>`;
+});
+

@@ -314,10 +314,12 @@ video{
     height: 100vh;
 }
 .header {
-    background-color: #333;
+    background: var(--pink);
+    background: radial-gradient(circle, var(--red) 0%, var(--pink) 100%);
     color: white;
     text-align: center;
-    padding: 3vw;
+    display: flex;
+    border: 2px solid black;
 }
 .content {
     display: flex;
@@ -325,7 +327,6 @@ video{
 }
 .column {
     flex: 1;
-    border: 1px solid #000000;
 }
 #sushiClickScreen{
     background-image: url('media/GamePic.jpg');
@@ -334,6 +335,7 @@ video{
     justify-content: center;
     align-items: center;
     height: 100%;
+    border-right: 2px solid black;
 }
 
 #sushi{
@@ -361,6 +363,23 @@ video{
     padding-bottom: 10%;
     background: var(--pink);
     background: radial-gradient(circle, var(--pink) 0%, var(--red) 100%);
+}
+
+#chefUpgradeScreen::-webkit-scrollbar-track, #sushiUpgradeScreen::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: black;
+}
+
+#chefUpgradeScreen::-webkit-scrollbar, #sushiUpgradeScreen::-webkit-scrollbar
+{
+	background-color: var(--red);
+}
+
+#chefUpgradeScreen::-webkit-scrollbar-thumb, #sushiUpgradeScreen::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: var(--pink);
 }
 
 .chef, .sushi {
@@ -405,4 +424,18 @@ video{
 
 .upgrade-button:hover {
     background-color: var(--red);
+}
+
+#sushiOutput{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sushiCountImg{
+    width: 6vw;
+}
+
+#headerText{
+    font-size: 2.5vw;
 }
