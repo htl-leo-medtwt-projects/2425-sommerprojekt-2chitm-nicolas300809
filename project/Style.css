@@ -317,7 +317,7 @@ video{
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 2vw;
+    padding: 3vw;
 }
 .content {
     display: flex;
@@ -339,7 +339,8 @@ video{
 #sushi{
     width: 50%;
     height: auto;
-    transition: all 1s;
+    transition: all 0.5s;
+    margin-top: 0;
 }
 
 #sushi:hover {
@@ -396,4 +397,28 @@ video{
 
 .upgrade-button:hover {
     background-color: var(--red);
+}
+
+#sushiUpgradeScreen {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    align-items: center;
+}
+
+.sushi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5vw;
+    background: #fff;
+    padding: 1vw;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sushi img {
+    width: 25.5%;
+    height: auto;
+    border-radius: 5px;
 }

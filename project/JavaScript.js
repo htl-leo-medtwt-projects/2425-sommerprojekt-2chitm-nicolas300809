@@ -79,10 +79,10 @@ function showGame() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const chefs = [
-        { id: "chef1", imgSrc: "media/chef1.png", name: "Chef A" },
-        { id: "chef2", imgSrc: "media/chef2.png", name: "Chef B" },
-        { id: "chef3", imgSrc: "media/chef3.png", name: "Chef C" },
-        { id: "chef4", imgSrc: "media/chef4.png", name: "Chef D" }
+        { id: "chef1", imgSrc: "media/chef1.png", name: "girl" },
+        { id: "chef2", imgSrc: "media/chef2.png", name: "panda" },
+        { id: "chef3", imgSrc: "media/chef3.png", name: "chef" },
+        { id: "chef4", imgSrc: "media/chef4.png", name: "samurai" }
     ];
 
     const chefUpgradeScreen = document.getElementById("chefUpgradeScreen");
@@ -103,5 +103,37 @@ document.addEventListener("DOMContentLoaded", function () {
         chefDiv.appendChild(img);
         chefDiv.appendChild(button);
         chefUpgradeScreen.appendChild(chefDiv);
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const sushi = [
+        { id: "sushi1", imgSrc: "media/sushi1.png", name: "sushi A" },
+        { id: "sushi2", imgSrc: "media/sushi2.png", name: "sushi B" },
+        { id: "sushi3", imgSrc: "media/sushi3.png", name: "sushi C" },
+        { id: "sushi4", imgSrc: "media/sushi4.png", name: "sushi D" },
+        { id: "sushi5", imgSrc: "media/sushi5.png", name: "sushi E" },
+        { id: "sushi6", imgSrc: "media/sushi6.png", name: "sushi F" }
+    ];
+
+    const sushiUpgradeScreen = document.getElementById("sushiUpgradeScreen");
+    sushiUpgradeScreen.innerHTML = "";
+
+    sushi.forEach(sushi => {
+        const sushiDiv = document.createElement("div");
+        sushiDiv.classList.add("sushi");
+
+        const img = document.createElement("img");
+        img.src = sushi.imgSrc;
+        img.alt = sushi.name;
+
+        const button = document.createElement("button");
+        button.textContent = "Buy " + sushi.name;
+        button.classList.add("upgrade-button");
+
+        sushiDiv.appendChild(img);
+        sushiDiv.appendChild(button);
+        sushiUpgradeScreen.appendChild(sushiDiv);
     });
 });
