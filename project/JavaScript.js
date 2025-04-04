@@ -81,8 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const chefs = [
         { id: "chef1", imgSrc: "media/chef1.png", name: "girl" },
         { id: "chef2", imgSrc: "media/chef2.png", name: "panda" },
-        { id: "chef3", imgSrc: "media/chef3.png", name: "chef" },
-        { id: "chef4", imgSrc: "media/chef4.png", name: "samurai" }
+        { id: "chef3", imgSrc: "media/chef3.png", name: "cat" },
+        { id: "chef4", imgSrc: "media/chef4.png", name: "chef"},
+        { id: "chef5", imgSrc: "media/chef5.png", name: "samurai"}
     ];
 
     const chefUpgradeScreen = document.getElementById("chefUpgradeScreen");
@@ -137,3 +138,10 @@ document.addEventListener("DOMContentLoaded", function () {
         sushiUpgradeScreen.appendChild(sushiDiv);
     });
 });
+
+let sushiCount = 0;
+let sushiPerClick = 1;
+
+function clickSushi(){
+    sushiCount += sushiPerClick;
+}
