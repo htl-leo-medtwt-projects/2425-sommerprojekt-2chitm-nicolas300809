@@ -132,6 +132,12 @@ html,body{
     background: black;
     transform: translateY(100%);
     transition: transform 1s ease-in-out;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 .show {
@@ -313,14 +319,7 @@ video{
     flex-direction: column;
     height: 100vh;
 }
-.header {
-    background: var(--pink);
-    background: radial-gradient(circle, var(--red) 0%, var(--pink) 100%);
-    color: white;
-    text-align: center;
-    display: flex;
-    border: 2px solid black;
-}
+
 .content {
     display: flex;
     flex: 1;
@@ -388,11 +387,21 @@ video{
     align-items: center;
     background: var(--pink);
     border-radius: 8px;
-    box-shadow: 0px 15px 20px black;
+    box-shadow: 0px 15px 20px var(--red);
     width: 80%;
     margin-top: 3.4vh;
     padding-bottom: 4vh;
     gap: 0.6vh;
+    transition: all 0.5s;
+}
+
+.chef:hover, .sushi:hover{
+    box-shadow: 0px 10px 15px black;
+    transform: translateY(-5px);
+}
+
+.chef:active, .sushi:active{
+    transform: translateY(-1px);
 }
 
 .chef img, .sushi img {
@@ -404,7 +413,7 @@ video{
 .upgrade-button {
     padding: 0.5vw 1vw;
     background-color: var(--red);
-    color: var(--pink);
+    color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -416,15 +425,12 @@ video{
     box-shadow: 0px 10px 15px var(--red);
     color: #fff;
     transform: translateY(-5px);
+    background-color: var(--red);
   }
   
   .upgrade-button:active {
     transform: translateY(-1px);
   }
-
-.upgrade-button:hover {
-    background-color: var(--red);
-}
 
 #sushiOutput{
     display: flex;
@@ -439,3 +445,38 @@ video{
 #headerText{
     font-size: 2.5vw;
 }
+
+.header {
+    background: var(--pink);
+    background: radial-gradient(circle, var(--red) 0%, var(--pink) 100%);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    border: 2px solid black;
+}
+
+#backButton2{
+    display: flex;
+    align-items: center;
+    transition: all 0.5s;
+    text-shadow: 2px 2px 5px var(--red);
+}
+
+#backButton2:hover{
+    text-shadow: 2px 2px 5px black;
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+#backButton2:active {
+    transform: translateY(-1px);
+  }
+
+  #sushiPerSecond{
+    display: flex;
+    align-items: center;
+    text-shadow: 2px 2px 5px var(--red);
+  }

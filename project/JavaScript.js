@@ -61,21 +61,41 @@ function hideInfoBox() {
 
 
 function showGame() {
-    let container1 = document.getElementById('startScreen');
-    let container2 = document.getElementById('gameScreen');
+    let gameScreen = document.getElementById('gameScreen');
+    let startScreen = document.getElementById('startScreen');
 
-    container1.style.transform = "translateY(-100%)"; 
-    container2.style.transform = "translateY(0%)"; 
+    gameScreen.style.display = 'block';
+    gameScreen.style.transform = "translateY(100%)";
+    
+    setTimeout(() => {
+        gameScreen.style.transform = "translateY(0%)";
+    }, 10);
 
     setTimeout(() => {
-        container1.style.display = 'none';
+        startScreen.style.display = 'none';
     }, 1000);
 }
-
 
         
 
 /* --------------------Game-------------------- */
+
+function backToStartscreen() {
+    let gameScreen = document.getElementById('gameScreen');
+    let startScreen = document.getElementById('startScreen');
+
+    startScreen.style.display = 'block';
+
+    setTimeout(() => {
+        gameScreen.style.transform = "translateY(100%)";
+    }, 10);
+
+    setTimeout(() => {
+        gameScreen.style.display = 'none';
+    }, 1000);
+}
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const chefs = [
@@ -141,17 +161,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
 let sushiCount = 0;
 let sushiPerClick = 1;
+let sushiPerSecond = 0;
 
 function clickSushi() {
     sushiCount += sushiPerClick;
     document.getElementById("sushiOutput").innerHTML = `
     <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
-    <p id="headerText">${sushiCount}</p>`;
+    <p id="headerText">${formatSushiCount(sushiCount)}</p>`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("sushiOutput").innerHTML = `
     <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
-    <p id="headerText">${sushiCount}</p>`;
+    <p id="headerText">${formatSushiCount(sushiCount)}</p>`;
 });
 
+document.getElementById('sushiPerSecond').innerHTML = `<p>sushi/second: ${sushiPerSecond}</p>`;
+
+
+//Format Function von ChatGPT
+function formatSushiCount(count) {
+    if (count >= 1e12) {
+        return (count / 1e12).toFixed(2) + "T";
+    } else if (count >= 1e9) {
+        return (count / 1e9).toFixed(2) + "B";
+    } else if (count >= 1e6) {
+        return (count / 1e6).toFixed(2) + "M";
+    } else if (count >= 1e3) {
+        return (count / 1e3).toFixed(2) + "K";
+    } else {
+        return count;
+    }
+}
