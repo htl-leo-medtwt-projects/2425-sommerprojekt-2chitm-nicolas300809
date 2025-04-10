@@ -99,11 +99,11 @@ function backToStartscreen() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const chefs = [
-        { id: "chef1", imgSrc: "media/chef1.png", name: "girl" },
-        { id: "chef2", imgSrc: "media/chef2.png", name: "panda" },
-        { id: "chef3", imgSrc: "media/chef3.png", name: "cat" },
-        { id: "chef4", imgSrc: "media/chef4.png", name: "chef"},
-        { id: "chef5", imgSrc: "media/chef5.png", name: "samurai"}
+        { id: "chef1", imgSrc: "media/chef1.png", name: "girl", price: chefGirlPrice, upgrade: upgradeChefGirl },
+        { id: "chef2", imgSrc: "media/chef2.png", name: "panda", price: 50, upgrade: upgradeChefPanda },
+        { id: "chef3", imgSrc: "media/chef3.png", name: "cat", price: 100, upgrade: upgradeChefCat },
+        { id: "chef4", imgSrc: "media/chef4.png", name: "chef", price: 500, upgrade: upgradeChefCook },
+        { id: "chef5", imgSrc: "media/chef5.png", name: "samurai", price: 1000, upgrade: upgradeChefSamurai }
     ];
 
     const chefUpgradeScreen = document.getElementById("chefUpgradeScreen");
@@ -118,14 +118,19 @@ document.addEventListener("DOMContentLoaded", function () {
         img.alt = chef.name;
 
         const button = document.createElement("button");
-        button.textContent = "Upgrade " + chef.name;
+        button.id = chef.id + "-button";
+        button.textContent = `Upgrade ${chef.name} for ${formatSushiCount(chef.price)} Sushi`;
         button.classList.add("upgrade-button");
+
+        button.addEventListener("click", chef.upgrade);
 
         chefDiv.appendChild(img);
         chefDiv.appendChild(button);
         chefUpgradeScreen.appendChild(chefDiv);
     });
 });
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -190,13 +195,45 @@ function formatSushiCount(count) {
     } else if (count >= 1e3) {
         return (count / 1e3).toFixed(2) + "K";
     } else {
-        return count;
+        return count.toFixed(2);
     }
 }
 
-function upgradeChefGirl(){
-    
+let chefGirlLevel = 0;
+let chefGirlPrice = 10;
+
+function upgradeChefGirl() {
+    if (sushiCount >= chefGirlPrice) {
+        sushiCount -= chefGirlPrice;
+        chefGirlLevel++;
+        chefGirlPrice *= 2;
+        sushiPerClick *= 1.2;
+
+        updateUI();
+    } else {
+        alert("Nicht genug Sushi!");
+    }
 }
+
+function updateUI() {
+    document.getElementById("sushiOutput").innerHTML = `
+        <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
+        <p id="headerText">${formatSushiCount(sushiCount)}</p>`;
+
+    document.getElementById("sushiPerSecond").innerHTML = `
+        <p>sushi/second: ${sushiPerSecond}</p>`;
+
+    let chefButton = document.getElementById("chef1-button");
+    if (chefButton) {
+        chefButton.textContent = `Upgrade Girl for ${formatSushiCount(chefGirlPrice)} Sushi`;
+    }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", updateUI);
+
+
 
 function upgradeChefPanda(){
 
