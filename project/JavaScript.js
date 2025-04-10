@@ -193,3 +193,23 @@ function formatSushiCount(count) {
         return count;
     }
 }
+
+function upgradeChefGirl(){
+    
+}
+
+function upgradeChefPanda(){
+
+}
+
+function upgradeChefCat(){
+
+}
+
+function upgradeChefCook(){
+
+}
+
+function upgradeChefSamurai(){
+
+}
