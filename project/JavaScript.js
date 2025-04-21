@@ -1,4 +1,4 @@
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         let container1 = document.getElementById('firstScreen');
         let container2 = document.getElementById('startScreen');
@@ -13,22 +13,22 @@ document.addEventListener('keydown', function(event) {
 });
 
 const img = document.getElementById("soundImage");
-        const sound = document.getElementById("sound");
+const sound = document.getElementById("sound");
 
-        img.addEventListener("click", () => {
-            if (sound.paused) {
-                sound.play();
-                img.src = "media/sound.png";
-            } else {
-                sound.pause();
-                sound.currentTime = 0;
-                img.src = "media/noSound.png";
-            }
-        });
+img.addEventListener("click", () => {
+    if (sound.paused) {
+        sound.play();
+        img.src = "media/sound.png";
+    } else {
+        sound.pause();
+        sound.currentTime = 0;
+        img.src = "media/noSound.png";
+    }
+});
 
-        sound.addEventListener("ended", () => {
-            img.src = "media/noSound.png";
-        });
+sound.addEventListener("ended", () => {
+    img.src = "media/noSound.png";
+});
 
 document.getElementById('infoBox').style.display = 'none';
 function showInfoBox() {
@@ -66,7 +66,7 @@ function showGame() {
 
     gameScreen.style.display = 'block';
     gameScreen.style.transform = "translateY(100%)";
-    
+
     setTimeout(() => {
         gameScreen.style.transform = "translateY(0%)";
     }, 10);
@@ -76,7 +76,7 @@ function showGame() {
     }, 1000);
 }
 
-        
+
 
 /* --------------------Game-------------------- */
 
@@ -96,14 +96,14 @@ function backToStartscreen() {
 }
 
 
-
+/* Hilfe von ChatGPT */
 document.addEventListener("DOMContentLoaded", function () {
     const chefs = [
         { id: "chef1", imgSrc: "media/chef1.png", name: "girl", price: chefGirlPrice, upgrade: upgradeChefGirl },
-        { id: "chef2", imgSrc: "media/chef2.png", name: "panda", price: 50, upgrade: upgradeChefPanda },
-        { id: "chef3", imgSrc: "media/chef3.png", name: "cat", price: 100, upgrade: upgradeChefCat },
-        { id: "chef4", imgSrc: "media/chef4.png", name: "chef", price: 500, upgrade: upgradeChefCook },
-        { id: "chef5", imgSrc: "media/chef5.png", name: "samurai", price: 1000, upgrade: upgradeChefSamurai }
+        { id: "chef2", imgSrc: "media/chef2.png", name: "panda", price: chefPandaPrice, upgrade: upgradeChefPanda },
+        { id: "chef3", imgSrc: "media/chef3.png", name: "cat", price: chefCatPrice, upgrade: upgradeChefCat },
+        { id: "chef4", imgSrc: "media/chef4.png", name: "chef", price: chefCookPrice, upgrade: upgradeChefCook },
+        { id: "chef5", imgSrc: "media/chef5.png", name: "samurai", price: chefSamuraiPrice, upgrade: upgradeChefSamurai }
     ];
 
     const chefUpgradeScreen = document.getElementById("chefUpgradeScreen");
@@ -129,9 +129,6 @@ document.addEventListener("DOMContentLoaded", function () {
         chefUpgradeScreen.appendChild(chefDiv);
     });
 });
-
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const sushi = [
@@ -163,22 +160,35 @@ document.addEventListener("DOMContentLoaded", function () {
         sushiUpgradeScreen.appendChild(sushiDiv);
     });
 });
+/* bis hier */
 
 let sushiCount = 0;
 let sushiPerClick = 1;
 let sushiPerSecond = 0;
 
 function clickSushi() {
-    sushiCount += sushiPerClick;
-    document.getElementById("sushiOutput").innerHTML = `
-    <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
-    <p id="headerText">${formatSushiCount(sushiCount)}</p>`;
+    let sushiGain = sushiPerClick;
+
+    if (Math.random() < critChance) {
+        sushiGain *= 3;
+    }
+
+    if (feverActive) {
+        sushiGain *= 2;
+    }
+
+    sushiCount += sushiGain;
+
+    updateUI();
+
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("sushiOutput").innerHTML = `
     <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
     <p id="headerText">${formatSushiCount(sushiCount)}</p>`;
+    updateUI();
 });
 
 document.getElementById('sushiPerSecond').innerHTML = `<p>sushi/second: ${sushiPerSecond}</p>`;
@@ -199,6 +209,45 @@ function formatSushiCount(count) {
     }
 }
 
+function updateUI() {
+    document.getElementById("sushiOutput").innerHTML = `
+        <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
+        <p id="headerText">${formatSushiCount(sushiCount)}</p>`;
+
+    document.getElementById("sushiPerSecond").innerHTML = `
+        <p>sushi/second: ${sushiPerSecond}</p>`;
+
+
+    let girlButton = document.getElementById("chef1-button");
+    if (girlButton) {
+        girlButton.textContent = `Upgrade Girl for ${formatSushiCount(chefGirlPrice)} Sushi`;
+    }
+
+    let pandaButton = document.getElementById("chef2-button");
+    if (pandaButton) {
+        pandaButton.textContent = `Upgrade Panda for ${formatSushiCount(chefPandaPrice)} Sushi`;
+    }
+
+    let catButton = document.getElementById("chef3-button");
+    if (catButton) {
+        catButton.textContent = `Upgrade Cat for ${formatSushiCount(chefCatPrice)} Sushi`;
+    }
+
+    let cookButton = document.getElementById("chef4-button");
+    if (cookButton) {
+        cookButton.textContent = `Upgrade Fire Chef for ${formatSushiCount(chefCookPrice)} Sushi`;
+    }
+
+    let samuraiButton = document.getElementById("chef5-button");
+    if (samuraiButton) {
+        samuraiButton.textContent = `Upgrade Samurai for ${formatSushiCount(chefSamuraiPrice)} Sushi`;
+    }
+
+}
+
+document.addEventListener("DOMContentLoaded", updateUI);
+
+
 let chefGirlLevel = 0;
 let chefGirlPrice = 10;
 
@@ -215,38 +264,148 @@ function upgradeChefGirl() {
     }
 }
 
-function updateUI() {
-    document.getElementById("sushiOutput").innerHTML = `
-        <img src="media/sushi5.png" alt="sushi" id="sushiCountImg">
-        <p id="headerText">${formatSushiCount(sushiCount)}</p>`;
 
-    document.getElementById("sushiPerSecond").innerHTML = `
-        <p>sushi/second: ${sushiPerSecond}</p>`;
+let chefPandaLevel = 0;
+let chefPandaPrice = 50;
+let critChance = 0.0;
+let critMultiplier = 3;
 
-    let chefButton = document.getElementById("chef1-button");
-    if (chefButton) {
-        chefButton.textContent = `Upgrade Girl for ${formatSushiCount(chefGirlPrice)} Sushi`;
+function upgradeChefPanda() {
+    if (sushiCount >= chefPandaPrice) {
+        sushiCount -= chefPandaPrice;
+        chefPandaLevel++;
+        chefPandaPrice *= 2;
+        critChance += 0.02;
+
+        updateUI();
+    } else {
+        alert("Nicht genug Sushi!");
     }
 }
 
+let chefCatLevel = 0;
+let chefCatPrice = 100;
+let sushiPerSecondGain = 1;
 
+function upgradeChefCat() {
+    if (sushiCount >= chefCatPrice) {
+        sushiCount -= chefCatPrice;
+        chefCatLevel++;
+        sushiPerSecond += sushiPerSecondGain;
+        chefCatPrice *= 2;
+        sushiPerSecondGain *= 1.2;
 
-document.addEventListener("DOMContentLoaded", updateUI);
-
-
-
-function upgradeChefPanda(){
-
+        updateUI();
+    } else {
+        alert("Nicht genug Sushi!");
+    }
 }
 
-function upgradeChefCat(){
+let chefCookLevel = 0;
+let chefCookPrice = 500;
 
+let feverActive = false;
+let feverDuration = 5;
+let feverCooldown = 30;
+let feverTimer;
+let cooldownTimer;
+
+function upgradeChefCook() {
+    if (sushiCount >= chefCookPrice) {
+        sushiCount -= chefCookPrice;
+        chefCookLevel++;
+        chefCookPrice *= 2;
+
+        feverDuration += 1;
+
+        if (chefCookLevel === 1) {
+            startFeverLoop();
+        }
+
+        updateUI();
+    } else {
+        alert("Nicht genug Sushi!");
+    }
 }
 
-function upgradeChefCook(){
-
+function startFeverLoop() {
+    triggerFever();
+    cooldownTimer = setInterval(triggerFever, feverCooldown * 1000); 
 }
 
-function upgradeChefSamurai(){
+function triggerFever() {
+    if (feverActive) return;
 
+    feverActive = true;
+    document.body.classList.add("fever-mode");
+
+    setTimeout(() => {
+        feverActive = false;
+        document.body.classList.remove("fever-mode");
+    }, feverDuration * 1000);
 }
+
+let chefSamuraiLevel = 0;
+let chefSamuraiPrice = 1000;
+
+let zenModeActive = false;
+let lastClickTime = Date.now();
+let originalSushiPerSecond = 0;
+let upgradeIndexZen = 1;
+
+function upgradeChefSamurai() {
+    if (sushiCount >= chefSamuraiPrice) {
+        sushiCount -= chefSamuraiPrice;
+        chefSamuraiLevel++;
+        chefSamuraiPrice *= 2;
+        upgradeIndexZen *= 2;
+
+        if (chefSamuraiLevel === 1) {
+            startZenCheck();
+        }
+
+        updateUI();
+    } else {
+        alert("Nicht genug Sushi!");
+    }
+}
+
+function startZenCheck() {
+    document.addEventListener("click", () => {
+        lastClickTime = Date.now();
+        if (zenModeActive) {
+            deactivateZenMode();
+        }
+    });
+
+    setInterval(() => {
+        if (chefSamuraiLevel >= 1 && !zenModeActive) {
+            const now = Date.now();
+            if (now - lastClickTime >= 10000) {
+                activateZenMode();
+            }
+        }
+    }, 1000);
+}
+
+function activateZenMode() {
+    zenModeActive = true;
+    originalSushiPerSecond = sushiPerSecond;
+    sushiPerSecond *= upgradeIndexZen;
+
+    const header = document.getElementById("headerText");
+    if (header) {
+        header.innerText = "ZEN MODE";
+        setTimeout(() => updateUI(), 1000);
+    }
+}
+
+function deactivateZenMode() {
+    zenModeActive = false;
+    sushiPerSecond = originalSushiPerSecond;
+}
+
+setInterval(() => {
+    sushiCount += sushiPerSecond;
+    updateUI();
+}, 1000);
