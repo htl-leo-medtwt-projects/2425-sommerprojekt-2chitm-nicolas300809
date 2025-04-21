@@ -215,7 +215,7 @@ function updateUI() {
         <p id="headerText">${formatSushiCount(sushiCount)}</p>`;
 
     document.getElementById("sushiPerSecond").innerHTML = `
-        <p>sushi/second: ${sushiPerSecond}</p>`;
+        <p>sushi/second: ${formatSushiCount(sushiPerSecond)}</p>`;
 
 
     let girlButton = document.getElementById("chef1-button");
@@ -255,7 +255,7 @@ function upgradeChefGirl() {
     if (sushiCount >= chefGirlPrice) {
         sushiCount -= chefGirlPrice;
         chefGirlLevel++;
-        chefGirlPrice *= 2;
+        chefGirlPrice *= 1.5;
         sushiPerClick *= 1.2;
 
         updateUI();
@@ -274,8 +274,8 @@ function upgradeChefPanda() {
     if (sushiCount >= chefPandaPrice) {
         sushiCount -= chefPandaPrice;
         chefPandaLevel++;
-        chefPandaPrice *= 2;
-        critChance += 0.02;
+        chefPandaPrice *= 1.5;
+        critChance += 0.05;
 
         updateUI();
     } else {
@@ -284,7 +284,7 @@ function upgradeChefPanda() {
 }
 
 let chefCatLevel = 0;
-let chefCatPrice = 1;
+let chefCatPrice = 100;
 let sushiPerSecondGain = 1;
 
 function upgradeChefCat() {
@@ -292,8 +292,8 @@ function upgradeChefCat() {
         sushiCount -= chefCatPrice;
         chefCatLevel++;
         sushiPerSecond += sushiPerSecondGain;
-        chefCatPrice *= 2;
-        sushiPerSecondGain *= 1.2;
+        chefCatPrice *= 1.5;
+        sushiPerSecondGain *= 1.4;
 
         updateUI();
     } else {
@@ -314,7 +314,7 @@ function upgradeChefCook() {
     if (sushiCount >= chefCookPrice) {
         sushiCount -= chefCookPrice;
         chefCookLevel++;
-        chefCookPrice *= 2;
+        chefCookPrice *= 1.5;
 
         feverDuration += 1;
 
@@ -346,7 +346,7 @@ function triggerFever() {
 }
 
 let chefSamuraiLevel = 0;
-let chefSamuraiPrice = 1;
+let chefSamuraiPrice = 1000;
 
 let zenModeActive = false;
 let lastClickTime = Date.now();
@@ -357,7 +357,7 @@ function upgradeChefSamurai() {
     if (sushiCount >= chefSamuraiPrice) {
         sushiCount -= chefSamuraiPrice;
         chefSamuraiLevel++;
-        chefSamuraiPrice *= 2;
+        chefSamuraiPrice *= 1.5;
         upgradeIndexZen *= 2;
 
         if (chefSamuraiLevel === 1) {
@@ -409,8 +409,46 @@ function deactivateZenMode() {
     }
 }
 
-
 setInterval(() => {
     sushiCount += sushiPerSecond;
     updateUI();
 }, 1000);
+
+function useSushi1(){
+    
+}
+
+function buySushi2(){
+    
+}
+function useSushi2(){
+    
+}
+
+function buySushi3(){
+    
+}
+function useSushi3(){
+    
+}
+
+function buySushi4(){
+    
+}
+function useSushi4(){
+    
+}
+
+function buySushi5(){
+    
+}
+function useSushi5(){
+    
+}
+
+function buySushi6(){
+    
+}
+function useSushi6(){
+    
+}
