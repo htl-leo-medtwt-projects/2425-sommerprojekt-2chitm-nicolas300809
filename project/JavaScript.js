@@ -284,7 +284,7 @@ function upgradeChefPanda() {
 }
 
 let chefCatLevel = 0;
-let chefCatPrice = 100;
+let chefCatPrice = 1;
 let sushiPerSecondGain = 1;
 
 function upgradeChefCat() {
@@ -346,7 +346,7 @@ function triggerFever() {
 }
 
 let chefSamuraiLevel = 0;
-let chefSamuraiPrice = 1000;
+let chefSamuraiPrice = 1;
 
 let zenModeActive = false;
 let lastClickTime = Date.now();
@@ -395,15 +395,20 @@ function activateZenMode() {
 
     const header = document.getElementById("headerText");
     if (header) {
-        header.innerText = "ZEN MODE";
-        setTimeout(() => updateUI(), 1000);
+        header.classList.add("zen-glow");
     }
 }
 
 function deactivateZenMode() {
     zenModeActive = false;
     sushiPerSecond = originalSushiPerSecond;
+
+    const header = document.getElementById("headerText");
+    if (header) {
+        header.classList.remove("zen-glow");
+    }
 }
+
 
 setInterval(() => {
     sushiCount += sushiPerSecond;
