@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sushi-Master</title>
     <link rel="stylesheet" href="Style.css">
+    <script src="./granim.js-2.0.0/granim.js-2.0.0/dist/granim.min.js" defer></script>
     <script src="JavaScript.js" defer></script>
 </head>
 <body>
@@ -34,10 +35,12 @@
        <button onclick="showGame()" id="playButton">Play!</button>
     </div>
 
-
     <div id="gameScreen">
         <div class="container">
             <div class="header">
+                <!-- Library -->
+                <canvas id="canvas-basic"></canvas>
+                <!-- Library -->
                 <div id="backButton2" onclick="backToStartscreen()">🡄 go back</div>
                 <div id="sushiOutput"></div>
                 <div id="sushiPerSecond"></div>

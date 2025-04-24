@@ -103,6 +103,7 @@ let lastClickTime = Date.now();
 let originalSushiPerSecond = 0;
 let upgradeIndexZen = 1;
 let currentSushiIndex = 0;
+let originalSushiPerClick = 1;
 
 const sushiPrices = [100, 500, 2000, 10000, 50000, 100000];
 const sushiMultipliers = [1, 2, 5, 10, 50, 100];
@@ -193,7 +194,7 @@ function upgradeChefCat() {
 
 //Hilfe von ChatGPT bei diesem Chef
 let chefCookLevel = 0;
-let chefCookPrice = 500;
+let chefCookPrice = 5;
 function upgradeChefCook() {
     if (sushiCount >= chefCookPrice) {
         sushiCount -= chefCookPrice;
@@ -212,10 +213,19 @@ function startFeverLoop() {
 
 function triggerFever() {
     if (feverActive) return;
+
     feverActive = true;
+    originalSushiPerClick = sushiPerClick;
+    originalSushiPerSecond = sushiPerSecond;
+
+    sushiPerSecond *= 2;
+
     document.body.classList.add("fever-mode");
+
     setTimeout(() => {
         feverActive = false;
+        sushiPerClick = originalSushiPerClick;
+        sushiPerSecond = originalSushiPerSecond;
         document.body.classList.remove("fever-mode");
     }, feverDuration * 1000);
 }
@@ -359,3 +369,20 @@ setInterval(() => {
     sushiCount += sushiPerSecond;
     updateUI();
 }, 1000);
+
+//Library
+var granimInstance = new Granim({
+    element: '#canvas-basic',
+    direction: 'radial',
+    isPausedWhenNotInView: false,
+    states : {
+        "default-state": {
+            gradients: [
+                ['#eec3c4', '#9d1926'],
+                ['#9d1926', '#eec3c4'],
+                ['#eec3c4', '#ed9ba3']
+            ]
+        }
+    }
+});
+//
