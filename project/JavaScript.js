@@ -105,8 +105,8 @@ let upgradeIndexZen = 1;
 let currentSushiIndex = 0;
 let originalSushiPerClick = 1;
 
-const sushiPrices = [100, 500, 2000, 10000, 50000, 100000];
-const sushiMultipliers = [1, 2, 5, 10, 50, 100];
+const sushiPrices = [1000, 250000, 25000000, 1000000000, 2500000000, 1000000000000];
+const sushiMultipliers = [1, 2, 10, 100, 500, 1000];
 const sushiBought = [true, false, false, false, false, false];
 
 function clickSushi() {
@@ -121,12 +121,23 @@ function clickSushi() {
 
 //format function von ChatGPT
 function formatSushiCount(count) {
-    if (count >= 1e12) return (count / 1e12).toFixed(2) + "T";
-    if (count >= 1e9) return (count / 1e9).toFixed(2) + "B";
-    if (count >= 1e6) return (count / 1e6).toFixed(2) + "M";
-    if (count >= 1e3) return (count / 1e3).toFixed(2) + "K";
-    return count.toFixed(2);
+    const suffixes = [
+        "", "K", "M", "B", "T", "Q", 
+        "aa", "ab", "ac", "ad", "ae", "af", "ag", "ah", "ai", "aj",
+        "ak", "al", "am", "an", "ao", "ap", "aq", "ar", "as", "at",
+        "au", "av", "aw", "ax", "ay", "az",
+        "ba", "bb", "bc", "bd", "be"
+    ];
+
+    if (count < 1000) return count.toFixed(2);
+
+    let tier = Math.floor(Math.log10(count) / 3);
+    if (tier >= suffixes.length) tier = suffixes.length - 1;
+
+    const scaled = count / Math.pow(10, tier * 3);
+    return scaled.toFixed(2) + suffixes[tier];
 }
+
 
 function updateUI() {
     const sushiOutput = document.getElementById("sushiOutput");
@@ -194,7 +205,7 @@ function upgradeChefCat() {
 
 //Hilfe von ChatGPT bei diesem Chef
 let chefCookLevel = 0;
-let chefCookPrice = 5;
+let chefCookPrice = 500;
 function upgradeChefCook() {
     if (sushiCount >= chefCookPrice) {
         sushiCount -= chefCookPrice;
@@ -380,9 +391,66 @@ var granimInstance = new Granim({
             gradients: [
                 ['#eec3c4', '#9d1926'],
                 ['#9d1926', '#eec3c4'],
-                ['#eec3c4', '#ed9ba3']
             ]
         }
     }
 });
-//
+//Library
+
+//Localstorage
+function saveGame() {
+    localStorage.setItem('sushiCount', sushiCount);
+    localStorage.setItem('sushiPerClick', sushiPerClick);
+    localStorage.setItem('sushiPerSecond', sushiPerSecond);
+    localStorage.setItem('critChance', critChance);
+    localStorage.setItem('critMultiplier', critMultiplier);
+    localStorage.setItem('feverDuration', feverDuration);
+    localStorage.setItem('feverCooldown', feverCooldown);
+    localStorage.setItem('zenModeActive', JSON.stringify(zenModeActive));
+    localStorage.setItem('upgradeIndexZen', upgradeIndexZen);
+    localStorage.setItem('currentSushiIndex', currentSushiIndex);
+
+    localStorage.setItem('chefGirlLevel', chefGirlLevel);
+    localStorage.setItem('chefPandaLevel', chefPandaLevel);
+    localStorage.setItem('chefCatLevel', chefCatLevel);
+    localStorage.setItem('chefCookLevel', chefCookLevel);
+    localStorage.setItem('chefSamuraiLevel', chefSamuraiLevel);
+
+    localStorage.setItem('chefGirlPrice', chefGirlPrice);
+    localStorage.setItem('chefPandaPrice', chefPandaPrice);
+    localStorage.setItem('chefCatPrice', chefCatPrice);
+    localStorage.setItem('chefCookPrice', chefCookPrice);
+    localStorage.setItem('chefSamuraiPrice', chefSamuraiPrice);
+
+    localStorage.setItem('sushiBought', JSON.stringify(sushiBought));
+}
+
+function loadGame() {
+    if (localStorage.getItem('sushiCount')) sushiCount = parseFloat(localStorage.getItem('sushiCount'));
+    if (localStorage.getItem('sushiPerClick')) sushiPerClick = parseFloat(localStorage.getItem('sushiPerClick'));
+    if (localStorage.getItem('sushiPerSecond')) sushiPerSecond = parseFloat(localStorage.getItem('sushiPerSecond'));
+    if (localStorage.getItem('critChance')) critChance = parseFloat(localStorage.getItem('critChance'));
+    if (localStorage.getItem('critMultiplier')) critMultiplier = parseFloat(localStorage.getItem('critMultiplier'));
+    if (localStorage.getItem('feverDuration')) feverDuration = parseFloat(localStorage.getItem('feverDuration'));
+    if (localStorage.getItem('feverCooldown')) feverCooldown = parseFloat(localStorage.getItem('feverCooldown'));
+    if (localStorage.getItem('zenModeActive')) zenModeActive = JSON.parse(localStorage.getItem('zenModeActive'));
+    if (localStorage.getItem('upgradeIndexZen')) upgradeIndexZen = parseFloat(localStorage.getItem('upgradeIndexZen'));
+    if (localStorage.getItem('currentSushiIndex')) currentSushiIndex = parseInt(localStorage.getItem('currentSushiIndex'));
+
+    if (localStorage.getItem('chefGirlLevel')) chefGirlLevel = parseInt(localStorage.getItem('chefGirlLevel'));
+    if (localStorage.getItem('chefPandaLevel')) chefPandaLevel = parseInt(localStorage.getItem('chefPandaLevel'));
+    if (localStorage.getItem('chefCatLevel')) chefCatLevel = parseInt(localStorage.getItem('chefCatLevel'));
+    if (localStorage.getItem('chefCookLevel')) chefCookLevel = parseInt(localStorage.getItem('chefCookLevel'));
+    if (localStorage.getItem('chefSamuraiLevel')) chefSamuraiLevel = parseInt(localStorage.getItem('chefSamuraiLevel'));
+
+    if (localStorage.getItem('chefGirlPrice')) chefGirlPrice = parseFloat(localStorage.getItem('chefGirlPrice'));
+    if (localStorage.getItem('chefPandaPrice')) chefPandaPrice = parseFloat(localStorage.getItem('chefPandaPrice'));
+    if (localStorage.getItem('chefCatPrice')) chefCatPrice = parseFloat(localStorage.getItem('chefCatPrice'));
+    if (localStorage.getItem('chefCookPrice')) chefCookPrice = parseFloat(localStorage.getItem('chefCookPrice'));
+    if (localStorage.getItem('chefSamuraiPrice')) chefSamuraiPrice = parseFloat(localStorage.getItem('chefSamuraiPrice'));
+
+    if (localStorage.getItem('sushiBought')) sushiBought.splice(0, sushiBought.length, ...JSON.parse(localStorage.getItem('sushiBought')));
+}
+setInterval(saveGame, 5000);
+loadGame();
+//Localstorage
