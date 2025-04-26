@@ -157,7 +157,7 @@ body {
     text-align: center;
     font-size: 6vw;
     color: var(--pink);
-    text-shadow: 2px 2px 5px var(--red);
+    text-shadow: 5px 5px 10px var(--red);
     transition: all 1s;
 }
 

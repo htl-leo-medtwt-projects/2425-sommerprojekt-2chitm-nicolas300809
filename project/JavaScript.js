@@ -18,16 +18,16 @@ const sound = document.getElementById("sound");
 img.addEventListener("click", () => {
     if (sound.paused) {
         sound.play();
-        img.src = "media/sound.png";
+        img.src = "./media/sound.png";
     } else {
         sound.pause();
         sound.currentTime = 0;
-        img.src = "media/noSound.png";
+        img.src = "./media/noSound.png";
     }
 });
 
 sound.addEventListener("ended", () => {
-    img.src = "media/noSound.png";
+    img.src = "./media/noSound.png";
 });
 
 document.getElementById("infoBox").style.display = "none";
@@ -117,6 +117,7 @@ function clickSushi() {
 
     sushiCount += sushiGain;
     updateUI();
+    saveGame();
 }
 
 //format function von ChatGPT
@@ -174,6 +175,7 @@ function upgradeChefGirl() {
         chefGirlPrice *= 1.5;
         sushiPerClick *= 1.2;
         updateUI();
+        saveGame();
     } else alert("Nicht genug Sushi!");
 }
 
@@ -186,6 +188,7 @@ function upgradeChefPanda() {
         critChance += 0.05;
         chefPandaPrice *= 1.5;
         updateUI();
+        saveGame();
     } else alert("Nicht genug Sushi!");
 }
 
@@ -200,6 +203,7 @@ function upgradeChefCat() {
         sushiPerSecondGain *= 1.4;
         chefCatPrice *= 1.5;
         updateUI();
+        saveGame();
     } else alert("Nicht genug Sushi!");
 }
 
@@ -214,6 +218,7 @@ function upgradeChefCook() {
         feverDuration += 1;
         if (chefCookLevel === 1) startFeverLoop();
         updateUI();
+        saveGame();
     } else alert("Nicht genug Sushi!");
 }
 
@@ -252,6 +257,7 @@ function upgradeChefSamurai() {
         upgradeIndexZen *= 2;
         if (chefSamuraiLevel === 1) startZenCheck();
         updateUI();
+        saveGame();
     } else alert("Nicht genug Sushi!");
 }
 
@@ -292,6 +298,7 @@ function buySushi(index) {
         sushiBought[index] = true;
         document.querySelectorAll(".sushi .upgrade-button")[index].textContent = "Use " + sushi[index].name;
         updateUI();
+        saveGame();
     } else alert("Nicht genug Sushi!");
 }
 
@@ -303,16 +310,17 @@ function useSushi(index) {
             button.textContent = i === index ? "Equipped" : "Use " + sushi[i].name;
         }
     });
-    document.getElementById("sushiCountImg").src = `media/sushi${index + 1}.png`;
+    document.getElementById("sushiCountImg").src = `./media/sushi${index + 1}.png`;
+    saveGame();
 }
 
 const sushi = [
-    { id: "sushi1", imgSrc: "media/sushi1.png", name: "sushi A" },
-    { id: "sushi2", imgSrc: "media/sushi2.png", name: "sushi B" },
-    { id: "sushi3", imgSrc: "media/sushi3.png", name: "sushi C" },
-    { id: "sushi4", imgSrc: "media/sushi4.png", name: "sushi D" },
-    { id: "sushi5", imgSrc: "media/sushi5.png", name: "sushi E" },
-    { id: "sushi6", imgSrc: "media/sushi6.png", name: "sushi F" }
+    { id: "sushi1", imgSrc: "./media/sushi1.png", name: "sushi A" },
+    { id: "sushi2", imgSrc: "./media/sushi2.png", name: "sushi B" },
+    { id: "sushi3", imgSrc: "./media/sushi3.png", name: "sushi C" },
+    { id: "sushi4", imgSrc: "./media/sushi4.png", name: "sushi D" },
+    { id: "sushi5", imgSrc: "./media/sushi5.png", name: "sushi E" },
+    { id: "sushi6", imgSrc: "./media/sushi6.png", name: "sushi F" }
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -340,17 +348,18 @@ document.addEventListener("DOMContentLoaded", () => {
         sushiUpgradeScreen.appendChild(sushiDiv);
     });
 
-    useSushi(0);
+    loadGame();
+    useSushi(currentSushiIndex);
     updateUI();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
     const chefs = [
-        { id: "chef1", imgSrc: "media/chef1.png", name: "girl", price: chefGirlPrice, upgrade: upgradeChefGirl },
-        { id: "chef2", imgSrc: "media/chef2.png", name: "panda", price: chefPandaPrice, upgrade: upgradeChefPanda },
-        { id: "chef3", imgSrc: "media/chef3.png", name: "cat", price: chefCatPrice, upgrade: upgradeChefCat },
-        { id: "chef4", imgSrc: "media/chef4.png", name: "chef", price: chefCookPrice, upgrade: upgradeChefCook },
-        { id: "chef5", imgSrc: "media/chef5.png", name: "samurai", price: chefSamuraiPrice, upgrade: upgradeChefSamurai }
+        { id: "chef1", imgSrc: "./media/chef1.png", name: "girl", price: chefGirlPrice, upgrade: upgradeChefGirl },
+        { id: "chef2", imgSrc: "./media/chef2.png", name: "panda", price: chefPandaPrice, upgrade: upgradeChefPanda },
+        { id: "chef3", imgSrc: "./media/chef3.png", name: "cat", price: chefCatPrice, upgrade: upgradeChefCat },
+        { id: "chef4", imgSrc: "./media/chef4.png", name: "chef", price: chefCookPrice, upgrade: upgradeChefCook },
+        { id: "chef5", imgSrc: "./media/chef5.png", name: "samurai", price: chefSamuraiPrice, upgrade: upgradeChefSamurai }
     ];
 
     const chefUpgradeScreen = document.getElementById("chefUpgradeScreen");
@@ -399,28 +408,28 @@ var granimInstance = new Granim({
 
 //Localstorage
 function saveGame() {
-    localStorage.setItem('sushiCount', sushiCount);
-    localStorage.setItem('sushiPerClick', sushiPerClick);
-    localStorage.setItem('sushiPerSecond', sushiPerSecond);
-    localStorage.setItem('critChance', critChance);
-    localStorage.setItem('critMultiplier', critMultiplier);
-    localStorage.setItem('feverDuration', feverDuration);
-    localStorage.setItem('feverCooldown', feverCooldown);
+    localStorage.setItem('sushiCount', JSON.stringify(sushiCount));
+    localStorage.setItem('sushiPerClick', JSON.stringify(sushiPerClick));
+    localStorage.setItem('sushiPerSecond', JSON.stringify(sushiPerSecond));
+    localStorage.setItem('critChance', JSON.stringify(critChance));
+    localStorage.setItem('critMultiplier', JSON.stringify(critMultiplier));
+    localStorage.setItem('feverDuration', JSON.stringify(feverDuration));
+    localStorage.setItem('feverCooldown', JSON.stringify(feverCooldown));
     localStorage.setItem('zenModeActive', JSON.stringify(zenModeActive));
-    localStorage.setItem('upgradeIndexZen', upgradeIndexZen);
-    localStorage.setItem('currentSushiIndex', currentSushiIndex);
+    localStorage.setItem('upgradeIndexZen', JSON.stringify(upgradeIndexZen));
+    localStorage.setItem('currentSushiIndex', JSON.stringify(currentSushiIndex));
 
-    localStorage.setItem('chefGirlLevel', chefGirlLevel);
-    localStorage.setItem('chefPandaLevel', chefPandaLevel);
-    localStorage.setItem('chefCatLevel', chefCatLevel);
-    localStorage.setItem('chefCookLevel', chefCookLevel);
-    localStorage.setItem('chefSamuraiLevel', chefSamuraiLevel);
+    localStorage.setItem('chefGirlLevel', JSON.stringify(chefGirlLevel));
+    localStorage.setItem('chefPandaLevel', JSON.stringify(chefPandaLevel));
+    localStorage.setItem('chefCatLevel', JSON.stringify(chefCatLevel));
+    localStorage.setItem('chefCookLevel', JSON.stringify(chefCookLevel));
+    localStorage.setItem('chefSamuraiLevel', JSON.stringify(chefSamuraiLevel));
 
-    localStorage.setItem('chefGirlPrice', chefGirlPrice);
-    localStorage.setItem('chefPandaPrice', chefPandaPrice);
-    localStorage.setItem('chefCatPrice', chefCatPrice);
-    localStorage.setItem('chefCookPrice', chefCookPrice);
-    localStorage.setItem('chefSamuraiPrice', chefSamuraiPrice);
+    localStorage.setItem('chefGirlPrice', JSON.stringify(chefGirlPrice));
+    localStorage.setItem('chefPandaPrice', JSON.stringify(chefPandaPrice));
+    localStorage.setItem('chefCatPrice', JSON.stringify(chefCatPrice));
+    localStorage.setItem('chefCookPrice', JSON.stringify(chefCookPrice));
+    localStorage.setItem('chefSamuraiPrice', JSON.stringify(chefSamuraiPrice));
 
     localStorage.setItem('sushiBought', JSON.stringify(sushiBought));
 }
@@ -451,6 +460,6 @@ function loadGame() {
 
     if (localStorage.getItem('sushiBought')) sushiBought.splice(0, sushiBought.length, ...JSON.parse(localStorage.getItem('sushiBought')));
 }
-setInterval(saveGame, 5000);
+
 loadGame();
 //Localstorage
