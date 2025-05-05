@@ -12,24 +12,6 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
-const img = document.getElementById("soundImage");
-const sound = document.getElementById("sound");
-
-img.addEventListener("click", () => {
-    if (sound.paused) {
-        sound.play();
-        img.src = "./media/sound.png";
-    } else {
-        sound.pause();
-        sound.currentTime = 0;
-        img.src = "./media/noSound.png";
-    }
-});
-
-sound.addEventListener("ended", () => {
-    img.src = "./media/noSound.png";
-});
-
 document.getElementById("infoBox").style.display = "none";
 
 function showInfoBox() {
@@ -323,7 +305,33 @@ const sushi = [
     { id: "sushi6", imgSrc: "./media/sushi6.png", name: "sushi F" }
 ];
 
+const chefs = [
+    { id: "chef1", imgSrc: "./media/chef1.png", name: "girl", price: chefGirlPrice, upgrade: upgradeChefGirl },
+    { id: "chef2", imgSrc: "./media/chef2.png", name: "panda", price: chefPandaPrice, upgrade: upgradeChefPanda },
+    { id: "chef3", imgSrc: "./media/chef3.png", name: "cat", price: chefCatPrice, upgrade: upgradeChefCat },
+    { id: "chef4", imgSrc: "./media/chef4.png", name: "chef", price: chefCookPrice, upgrade: upgradeChefCook },
+    { id: "chef5", imgSrc: "./media/chef5.png", name: "samurai", price: chefSamuraiPrice, upgrade: upgradeChefSamurai }
+];
+
 document.addEventListener("DOMContentLoaded", () => {
+    const img = document.getElementById("soundImage");
+    const sound = document.getElementById("sound");
+
+    img.addEventListener("click", () => {
+        if (sound.paused) {
+            sound.play();
+            img.src = "./media/sound.png";
+        } else {
+            sound.pause();
+            sound.currentTime = 0;
+            img.src = "./media/noSound.png";
+        }
+    });
+
+    sound.addEventListener("ended", () => {
+        img.src = "./media/noSound.png";
+    });
+
     const sushiUpgradeScreen = document.getElementById("sushiUpgradeScreen");
     sushiUpgradeScreen.innerHTML = "";
 
@@ -348,20 +356,6 @@ document.addEventListener("DOMContentLoaded", () => {
         sushiUpgradeScreen.appendChild(sushiDiv);
     });
 
-    loadGame();
-    useSushi(currentSushiIndex);
-    updateUI();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const chefs = [
-        { id: "chef1", imgSrc: "./media/chef1.png", name: "girl", price: chefGirlPrice, upgrade: upgradeChefGirl },
-        { id: "chef2", imgSrc: "./media/chef2.png", name: "panda", price: chefPandaPrice, upgrade: upgradeChefPanda },
-        { id: "chef3", imgSrc: "./media/chef3.png", name: "cat", price: chefCatPrice, upgrade: upgradeChefCat },
-        { id: "chef4", imgSrc: "./media/chef4.png", name: "chef", price: chefCookPrice, upgrade: upgradeChefCook },
-        { id: "chef5", imgSrc: "./media/chef5.png", name: "samurai", price: chefSamuraiPrice, upgrade: upgradeChefSamurai }
-    ];
-
     const chefUpgradeScreen = document.getElementById("chefUpgradeScreen");
     chefUpgradeScreen.innerHTML = "";
 
@@ -383,6 +377,9 @@ document.addEventListener("DOMContentLoaded", () => {
         chefDiv.appendChild(button);
         chefUpgradeScreen.appendChild(chefDiv);
     });
+
+    loadGame();
+    updateUI();
 });
 
 setInterval(() => {
@@ -458,20 +455,25 @@ function loadGame() {
     if (localStorage.getItem('chefCookPrice')) chefCookPrice = parseFloat(localStorage.getItem('chefCookPrice'));
     if (localStorage.getItem('chefSamuraiPrice')) chefSamuraiPrice = parseFloat(localStorage.getItem('chefSamuraiPrice'));
 
-    if (localStorage.getItem('sushiBought')) sushiBought.splice(0, sushiBought.length, ...JSON.parse(localStorage.getItem('sushiBought')));
+    if (localStorage.getItem('sushiBought')) {
+        const loaded = JSON.parse(localStorage.getItem('sushiBought'));
+        if (Array.isArray(loaded)) {
+            loaded.forEach((bought, i) => sushiBought[i] = bought);
+        }
+    }
+    
+    if (currentSushiIndex >= 0) {
+        document.getElementById("sushiCountImg").src = `./media/sushi${currentSushiIndex + 1}.png`;
+        document.querySelectorAll(".sushi .upgrade-button").forEach((button, i) => {
+            if (sushiBought[i]) {
+                button.textContent = i === currentSushiIndex ? "Equipped" : "Use " + sushi[i].name;
+            }
+        });
+    }
 }
 
 loadGame();
+
+if (chefCookLevel >= 1) startFeverLoop();
+if (chefSamuraiLevel >= 1) startZenCheck();
 //Localstorage
-
-function showNotification(message) {
-    const notif = document.getElementById("notification");
-    notif.textContent = message;
-    notif.classList.remove("hidden");
-    notif.classList.add("show");
-
-    setTimeout(() => {
-        notif.classList.remove("show");
-        notif.classList.add("hidden");
-    }, 2000);
-}
