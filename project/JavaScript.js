@@ -176,7 +176,7 @@ function upgradeChefGirl() {
         sushiPerClick *= 1.2;
         updateUI();
         saveGame();
-    } else alert("Nicht genug Sushi!");
+    } else showNotification("not enough sushi!");
 }
 
 let chefPandaLevel = 0;
@@ -189,7 +189,7 @@ function upgradeChefPanda() {
         chefPandaPrice *= 1.5;
         updateUI();
         saveGame();
-    } else alert("Nicht genug Sushi!");
+    } else showNotification("not enough sushi!");
 }
 
 let chefCatLevel = 0;
@@ -204,7 +204,7 @@ function upgradeChefCat() {
         chefCatPrice *= 1.5;
         updateUI();
         saveGame();
-    } else alert("Nicht genug Sushi!");
+    } else showNotification("not enough sushi!");
 }
 
 //Hilfe von ChatGPT bei diesem Chef
@@ -219,7 +219,7 @@ function upgradeChefCook() {
         if (chefCookLevel === 1) startFeverLoop();
         updateUI();
         saveGame();
-    } else alert("Nicht genug Sushi!");
+    } else showNotification("not enough sushi!");
 }
 
 function startFeverLoop() {
@@ -258,7 +258,7 @@ function upgradeChefSamurai() {
         if (chefSamuraiLevel === 1) startZenCheck();
         updateUI();
         saveGame();
-    } else alert("Nicht genug Sushi!");
+    } else showNotification("not enough sushi!");
 }
 
 function startZenCheck() {
@@ -299,7 +299,7 @@ function buySushi(index) {
         document.querySelectorAll(".sushi .upgrade-button")[index].textContent = "Use " + sushi[index].name;
         updateUI();
         saveGame();
-    } else alert("Nicht genug Sushi!");
+    } else showNotification("not enough sushi!");
 }
 
 function useSushi(index) {
@@ -463,3 +463,15 @@ function loadGame() {
 
 loadGame();
 //Localstorage
+
+function showNotification(message) {
+    const notif = document.getElementById("notification");
+    notif.textContent = message;
+    notif.classList.remove("hidden");
+    notif.classList.add("show");
+
+    setTimeout(() => {
+        notif.classList.remove("show");
+        notif.classList.add("hidden");
+    }, 2000);
+}

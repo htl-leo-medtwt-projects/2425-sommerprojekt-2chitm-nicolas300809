@@ -550,3 +550,28 @@ body.fever-mode {
     z-index: -1;
 }
 /* Library */
+
+.notification {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000000;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    font-family: sushi;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+.notification.hidden {
+    display: none;
+}
