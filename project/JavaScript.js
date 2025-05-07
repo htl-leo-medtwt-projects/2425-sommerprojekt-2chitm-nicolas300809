@@ -1,3 +1,52 @@
+function createTooltip(content) {
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.innerHTML = content;
+    document.body.appendChild(tooltip);
+    return tooltip;
+}
+
+function showTooltip(event, content) {
+    const tooltip = createTooltip(content);
+    
+    const x = event.clientX + 10;
+    const y = event.clientY + 10;
+    
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
+    tooltip.style.opacity = "1";
+    
+    const element = event.currentTarget;
+    element.addEventListener("mouseleave", hideTooltip);
+    element.tooltip = tooltip;
+}
+
+function hideTooltip(event) {
+    const element = event.currentTarget;
+    if (element.tooltip) {
+        element.tooltip.remove();
+        element.tooltip = null;
+    }
+    element.removeEventListener("mouseleave", hideTooltip);
+}
+
+const chefTooltips = [
+    "Increases your sushi per click by 20%",
+    "Increases the chance of critical hits by 5%",
+    "Automatically gives you sushi per second",
+    "Activates a Fever Mode every 30 seconds (2x bonus)",
+    "Activates Zen Mode after 10 seconds of inactivity"
+];
+
+const sushiTooltips = [
+    "Standard sushi with 1x multiplier",
+    "2x multiplier for your clicks",
+    "10x multiplier for your clicks",
+    "100x multiplier for your clicks",
+    "500x multiplier for your clicks",
+    "1000x multiplier for your clicks"
+];
+
 document.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         const container1 = document.getElementById("firstScreen");
@@ -376,6 +425,30 @@ document.addEventListener("DOMContentLoaded", () => {
         chefDiv.appendChild(img);
         chefDiv.appendChild(button);
         chefUpgradeScreen.appendChild(chefDiv);
+    });
+
+    chefs.forEach((chef, index) => {
+        const element = document.getElementById(`${chef.id}-button`);
+        if (element) {
+            element.addEventListener("mouseenter", (e) => {
+                showTooltip(e, `
+                    <strong>${chef.name}</strong><br>
+                    ${chefTooltips[index]}<br>
+                `);
+            });
+        }
+    });
+
+    sushi.forEach((item, index) => {
+        const buttons = document.querySelectorAll(".sushi .upgrade-button");
+        if (buttons[index]) {
+            buttons[index].addEventListener("mouseenter", (e) => {
+                showTooltip(e, `
+                    <strong>${item.name}</strong><br>
+                    ${sushiTooltips[index]}<br>
+                `);
+            });
+        }
     });
 
     loadGame();
