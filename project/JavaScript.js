@@ -193,7 +193,25 @@ function updateUI() {
 
     chefs.forEach((chef, i) => {
         const btn = document.getElementById(`${chef.id}-button`);
-        if (btn) btn.textContent = `Upgrade ${chef.name} for ${formatSushiCount(chef.price)} Sushi`;
+        if (btn) {
+            btn.textContent = `Upgrade ${chef.name} for ${formatSushiCount(chef.price)} Sushi`;
+            if (sushiCount >= chef.price) {
+                btn.classList.add("affordable");
+            } else {
+                btn.classList.remove("affordable");
+            }
+        }
+    });
+
+    sushi.forEach((item, index) => {
+        const buttons = document.querySelectorAll(".sushi .upgrade-button");
+        if (buttons[index]) {
+            if (sushiCount >= sushiPrices[index] && !sushiBought[index]) {
+                buttons[index].classList.add("affordable");
+            } else {
+                buttons[index].classList.remove("affordable");
+            }
+        }
     });
 }
 
@@ -384,30 +402,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const sushiUpgradeScreen = document.getElementById("sushiUpgradeScreen");
     sushiUpgradeScreen.innerHTML = "";
 
-    sushi.forEach((item, index) => {
-        const sushiDiv = document.createElement("div");
-        sushiDiv.classList.add("sushi");
-
-        const img = document.createElement("img");
-        img.src = item.imgSrc;
-        img.alt = item.name;
-
-        const button = document.createElement("button");
-        button.textContent = sushiBought[index]
-            ? "Use " + item.name
-            : `Buy ${item.name} (${formatSushiCount(sushiPrices[index])} Sushi)`;
-
-        button.classList.add("upgrade-button");
-        button.addEventListener("click", () => buySushi(index));
-
-        sushiDiv.appendChild(img);
-        sushiDiv.appendChild(button);
-        sushiUpgradeScreen.appendChild(sushiDiv);
-    });
-
-    const chefUpgradeScreen = document.getElementById("chefUpgradeScreen");
-    chefUpgradeScreen.innerHTML = "";
-
     chefs.forEach(chef => {
         const chefDiv = document.createElement("div");
         chefDiv.classList.add("chef");
@@ -420,11 +414,39 @@ document.addEventListener("DOMContentLoaded", () => {
         button.id = chef.id + "-button";
         button.textContent = `Upgrade ${chef.name} for ${formatSushiCount(chef.price)} Sushi`;
         button.classList.add("upgrade-button");
+       
+        if (sushiCount >= chef.price) {
+            button.classList.add("affordable");
+        }
         button.addEventListener("click", chef.upgrade);
 
         chefDiv.appendChild(img);
         chefDiv.appendChild(button);
         chefUpgradeScreen.appendChild(chefDiv);
+    });
+
+    sushi.forEach((item, index) => {
+        const sushiDiv = document.createElement("div");
+        sushiDiv.classList.add("sushi");
+
+        const img = document.createElement("img");
+        img.src = item.imgSrc;
+        img.alt = item.name;
+
+        const button = document.createElement("button");
+        button.textContent = sushiBought[index]
+            ? "Use " + item.name
+            : `Buy ${item.name} (${formatSushiCount(sushiPrices[index])} Sushi)`;
+        button.classList.add("upgrade-button");
+
+        if (sushiCount >= sushiPrices[index] && !sushiBought[index]) {
+            button.classList.add("affordable");
+        }
+        button.addEventListener("click", () => buySushi(index));
+
+        sushiDiv.appendChild(img);
+        sushiDiv.appendChild(button);
+        sushiUpgradeScreen.appendChild(sushiDiv);
     });
 
     chefs.forEach((chef, index) => {
@@ -550,3 +572,15 @@ loadGame();
 if (chefCookLevel >= 1) startFeverLoop();
 if (chefSamuraiLevel >= 1) startZenCheck();
 //Localstorage
+
+function showNotification(message) {
+    const notification = document.createElement("div");
+    notification.className = "notification";
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add("fade-out");
+        setTimeout(() => notification.remove(), 500);
+    }, 2000);
+}

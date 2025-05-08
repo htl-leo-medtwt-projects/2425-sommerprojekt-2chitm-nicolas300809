@@ -429,9 +429,8 @@ video {
 
 .upgrade-button {
     padding: 0.5vw 1vw;
-    background-color: var(--red);
+    background-color: #6c757d;
     color: white;
-    border: none;
     cursor: url('./media/hand-cursor.png'), auto;
     border-radius: 5px;
     transition: all 0.3s;
@@ -439,11 +438,13 @@ video {
     border: black solid 1.5px;
 }
 
+.upgrade-button.affordable {
+    background-color: var(--red);
+}
+
 .upgrade-button:hover {
     box-shadow: 0px 10px 15px var(--red);
-    color: #fff;
     transform: translateY(-5px);
-    background-color: var(--red);
 }
 
 .upgrade-button:active {
@@ -553,23 +554,6 @@ body.fever-mode {
 }
 /* Library */
 
-.notification {
-    position: fixed;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #000000;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 1.2em;
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    font-family: sushi;
-}
-
 .notification.show {
     opacity: 1;
 }
@@ -596,4 +580,23 @@ body.fever-mode {
 
 .tooltip strong {
     color: var(--pink);
+}
+
+.notification {
+    position: fixed;
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--red);
+    color: white;
+    border-radius: 5px;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s;
+    font-size: 2vw;
+    padding: 1vw;
+}
+
+.notification.fade-out {
+    opacity: 0;
 }
