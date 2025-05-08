@@ -193,19 +193,39 @@ video {
     cursor: url('./media/hand-cursor.png'), auto;
     font-family: sushi;
     display: block;
-    margin-top: 30vh;
+    margin-top: 25vh;
     margin-left: auto;
     margin-right: auto;
 }
 
-#playButton:hover {
+#prestigeButton{
+    padding: 1.3em 3em;
+    text-transform: uppercase;
+    font-size: 2vw;
+    letter-spacing: 0.2vw;
+    font-weight: 500;
+    color: #000;
+    background-color: var(--pink);
+    border: 2px solid black;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: url('./media/hand-cursor.png'), auto;
+    font-family: sushi;
+    display: block;
+    margin-top: 8vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#playButton:hover, #prestigeButton:hover {
     background-color: var(--red);
     box-shadow: 0px 15px 20px var(--red);
     color: #fff;
     transform: translateY(-7px);
 }
 
-#playButton:active {
+#playButton:active, #prestigeButton:active {
     transform: translateY(-1px);
 }
 
