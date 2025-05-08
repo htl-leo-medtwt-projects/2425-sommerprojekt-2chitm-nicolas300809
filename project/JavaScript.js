@@ -272,6 +272,7 @@ function upgradeChefCook() {
 }
 
 function startFeverLoop() {
+    clearInterval(cooldownTimer);
     triggerFever();
     cooldownTimer = setInterval(triggerFever, feverCooldown * 1000);
 }
@@ -303,7 +304,7 @@ function upgradeChefSamurai() {
         sushiCount -= chefSamuraiPrice;
         chefSamuraiLevel++;
         chefSamuraiPrice *= 1.5;
-        upgradeIndexZen *= 2;
+        upgradeIndexZen *= 4;
         if (chefSamuraiLevel === 1) startZenCheck();
         updateUI();
         saveGame();
@@ -316,18 +317,31 @@ function startZenCheck() {
         if (zenModeActive) deactivateZenMode();
     });
 
-    setInterval(() => {
+    const zenIntervals = window.zenIntervals || [];
+    zenIntervals.forEach(interval => clearInterval(interval));
+    window.zenIntervals = [];
+
+    const interval = setInterval(() => {
         if (chefSamuraiLevel >= 1 && !zenModeActive && Date.now() - lastClickTime >= 10000) {
             activateZenMode();
         }
     }, 1000);
+    zenIntervals.push(interval);
 }
 
 function activateZenMode() {
+    if (zenModeActive) return;
+    
     zenModeActive = true;
     originalSushiPerSecond = sushiPerSecond;
     sushiPerSecond *= upgradeIndexZen;
-    document.getElementById("headerText").classList.add("zen-glow");
+    
+    const headerText = document.getElementById("headerText");
+    if (headerText) {
+        headerText.classList.add("zen-glow");
+    }
+    
+    saveGame();
 }
 
 function deactivateZenMode() {
@@ -500,6 +514,7 @@ var granimInstance = new Granim({
 
 //Localstorage
 function saveGame() {
+    localStorage.setItem('lastClickTime', JSON.stringify(lastClickTime));
     localStorage.setItem('sushiCount', JSON.stringify(sushiCount));
     localStorage.setItem('sushiPerClick', JSON.stringify(sushiPerClick));
     localStorage.setItem('sushiPerSecond', JSON.stringify(sushiPerSecond));
@@ -549,6 +564,30 @@ function loadGame() {
     if (localStorage.getItem('chefCatPrice')) chefCatPrice = parseFloat(localStorage.getItem('chefCatPrice'));
     if (localStorage.getItem('chefCookPrice')) chefCookPrice = parseFloat(localStorage.getItem('chefCookPrice'));
     if (localStorage.getItem('chefSamuraiPrice')) chefSamuraiPrice = parseFloat(localStorage.getItem('chefSamuraiPrice'));
+
+    if (localStorage.getItem('lastClickTime')) lastClickTime = parseFloat(localStorage.getItem('lastClickTime'));
+
+    if (chefCookLevel >= 1) {
+        clearInterval(cooldownTimer);
+        startFeverLoop();
+    }
+    
+    if (chefSamuraiLevel >= 1) {
+        document.addEventListener("click", () => {
+            lastClickTime = Date.now();
+            if (zenModeActive) deactivateZenMode();
+        });
+        
+        if (!zenModeActive && Date.now() - lastClickTime >= 10000) {
+            activateZenMode();
+        }
+        
+        setInterval(() => {
+            if (chefSamuraiLevel >= 1 && !zenModeActive && Date.now() - lastClickTime >= 10000) {
+                activateZenMode();
+            }
+        }, 1000);
+    }
 
     if (localStorage.getItem('sushiBought')) {
         const loaded = JSON.parse(localStorage.getItem('sushiBought'));
