@@ -88,6 +88,31 @@ function hideInfoBox() {
     });
 }
 
+function showPrestigeBox() {
+    const infoBox = document.getElementById("prestigeBox");
+    infoBox.style.display = "inline-block";
+    infoBox.classList.remove("info-hide");
+    infoBox.classList.add("info-show");
+
+    ["row", "backgroundVid", "playButton", "prestigeButton"].forEach(id => {
+        document.getElementById(id).style.filter = "blur(5px)";
+    });
+}
+
+function hidePrestigeBox() {
+    const infoBox = document.getElementById("prestigeBox");
+    infoBox.classList.remove("info-show");
+    infoBox.classList.add("info-hide");
+
+    setTimeout(() => {
+        infoBox.style.display = "none";
+    }, 300);
+
+    ["row", "backgroundVid", "playButton", "prestigeButton"].forEach(id => {
+        document.getElementById(id).style.filter = "blur(0px)";
+    });
+}
+
 function showGame() {
     const gameScreen = document.getElementById("gameScreen");
     const startScreen = document.getElementById("startScreen");
