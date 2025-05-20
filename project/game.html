@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/granim@2.0.0/dist/granim.min.js"></script>
     <script src="JavaScript.js" defer></script>
 </head>
+
 <body>
 
     <div id="feverOverlay"></div>
-    
+
     <div id="firstScreen">
         <h1 id="firstScreenH1">go into fullscreen!</h1>
         <h2 id="firstScreenH2">click enter to start game...</h2>
@@ -26,20 +28,25 @@
         </div>
 
         <div id="infoBox">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam accumsan, neque in malesuada tempus, lacus metus vehicula sapien, at condimentum eros magna sit amet nulla. Phasellus sagittis, justo nec tincidunt ultrices, justo augue cursus elit, non feugiat arcu eros sed justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum scelerisque venenatis arcu, sit amet elementum erat facilisis id.
-            Suspendisse potenti. Cras vel enim eu dui aliquet suscipit. Mauris auctor felis id felis fermentum, nec tincidunt nulla faucibus. Morbi non volutpat tortor. Integer ac dapibus turpis. Sed ut turpis ut metus hendrerit ultrices. Aenean id augue euismod, condimentum nulla vel, facilisis nunc. Fusce sed orci in risus tempus congue in ac tortor.
+            <p>Werde zum Sushi-Meister!</p>
+            <p>
+                Klicke auf Sushi, verdiene Punkte und baue dein Imperium auf.<br>
+                Kaufe neue Sushi-Sorten, upgrade deine Köche, aktiviere Spezial-Modi wie Fever oder Zen und genieße die
+                japanische Atmosphäre mit Musik und Animationen.<br>
+                Schaffst du es, der ultimative Sushi-King zu werden?
+            </p>
             <button id="backButton" onclick="hideInfoBox()">back</button>
         </div>
 
-       <audio id="sound" src="media/music.mp3"></audio>
-       <video src="media/BackgroundVid.mp4" autoplay muted loop id="backgroundVid"></video>
-       <button onclick="showGame()" id="playButton">Play!</button>
-       <button onclick="showPrestigeBox()" id="prestigeButton">Prestige</button>
-       <div id="prestigeBox">
-        hallo hallo hallo hallo
-        <button id="backButton" onclick="hidePrestigeBox()">back</button>
-    </div>
-    
+        <audio id="sound" src="media/music.mp3"></audio>
+        <video src="media/BackgroundVid.mp4" autoplay muted loop id="backgroundVid"></video>
+        <button onclick="showGame()" id="playButton">Play!</button>
+        <button onclick="showPrestigeBox()" id="prestigeButton">Prestige</button>
+        <div id="prestigeBox">
+            hallo hallo hallo hallo
+            <button id="backButton" onclick="hidePrestigeBox()">back</button>
+        </div>
+
     </div>
 
     <div id="gameScreen">
@@ -57,13 +64,14 @@
                     <img src="media/sushi1.png" alt="sushi" id="sushi" onclick="clickSushi()">
                 </div>
                 <div class="column" id="chefUpgradeScreen">
-                    
+
                 </div>
                 <div class="column" id="sushiUpgradeScreen">
-                    
+
                 </div>
             </div>
-    </div>
+        </div>
 
 </body>
+
 </html>

@@ -302,6 +302,7 @@ video {
 
 #prestigeBox {
     background-color: var(--pink);
+    display: none;
     width: 50vw;
     margin-left: 25vw;
     margin-top: 5vh;
