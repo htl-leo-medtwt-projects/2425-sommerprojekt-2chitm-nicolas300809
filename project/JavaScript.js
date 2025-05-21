@@ -248,6 +248,11 @@ function upgradeChefGirl() {
         chefGirlLevel++;
         chefGirlPrice *= 1.5;
         sushiPerClick *= 1.2;
+
+        if (chefGirlLevel === 1) {
+            document.getElementById("chefGirlImage").style.display = "block";
+        }
+
         updateUI();
         saveGame();
     } else showNotification("not enough sushi!");
@@ -261,6 +266,11 @@ function upgradeChefPanda() {
         chefPandaLevel++;
         critChance += 0.05;
         chefPandaPrice *= 1.5;
+
+        if (chefPandaLevel === 1) {
+            document.getElementById("chefPandaImage").style.display = "block";
+        }
+
         updateUI();
         saveGame();
     } else showNotification("not enough sushi!");
@@ -276,6 +286,11 @@ function upgradeChefCat() {
         sushiPerSecond += sushiPerSecondGain;
         sushiPerSecondGain *= 1.4;
         chefCatPrice *= 1.5;
+
+        if (chefCatLevel === 1) {
+            document.getElementById("chefCatImage").style.display = "block";
+        }
+
         updateUI();
         saveGame();
     } else showNotification("not enough sushi!");
@@ -291,6 +306,11 @@ function upgradeChefCook() {
         chefCookPrice *= 1.5;
         feverDuration += 1;
         if (chefCookLevel === 1) startFeverLoop();
+
+        if (chefCookLevel === 1) {
+            document.getElementById("chefCookImage").style.display = "block";
+        }
+
         updateUI();
         saveGame();
     } else showNotification("not enough sushi!");
@@ -331,6 +351,11 @@ function upgradeChefSamurai() {
         chefSamuraiPrice *= 1.5;
         upgradeIndexZen *= 4;
         if (chefSamuraiLevel === 1) startZenCheck();
+
+        if (chefSamuraiLevel === 1) {
+            document.getElementById("chefSamuraiImage").style.display = "block";
+        }
+
         updateUI();
         saveGame();
     } else showNotification("not enough sushi!");
@@ -403,12 +428,12 @@ function useSushi(index) {
 }
 
 const sushi = [
-    { id: "sushi1", imgSrc: "./media/sushi1.png", name: "sushi A" },
-    { id: "sushi2", imgSrc: "./media/sushi2.png", name: "sushi B" },
-    { id: "sushi3", imgSrc: "./media/sushi3.png", name: "sushi C" },
-    { id: "sushi4", imgSrc: "./media/sushi4.png", name: "sushi D" },
-    { id: "sushi5", imgSrc: "./media/sushi5.png", name: "sushi E" },
-    { id: "sushi6", imgSrc: "./media/sushi6.png", name: "sushi F" }
+    { id: "sushi1", imgSrc: "./media/sushi1.png", name: "Nigiri" },
+    { id: "sushi2", imgSrc: "./media/sushi2.png", name: "Gold Nigiri" },
+    { id: "sushi3", imgSrc: "./media/sushi3.png", name: "Super Nigiri" },
+    { id: "sushi4", imgSrc: "./media/sushi4.png", name: "Hoso Maki" },
+    { id: "sushi5", imgSrc: "./media/sushi5.png", name: "Maki" },
+    { id: "sushi6", imgSrc: "./media/sushi6.png", name: "Sushi plate" }
 ];
 
 const chefs = [
@@ -420,6 +445,13 @@ const chefs = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    if (chefGirlLevel >= 1) document.getElementById("chefGirlImage").style.display = "block";
+    if (chefPandaLevel >= 1) document.getElementById("chefPandaImage").style.display = "block";
+    if (chefCatLevel >= 1) document.getElementById("chefCatImage").style.display = "block";
+    if (chefCookLevel >= 1) document.getElementById("chefCookImage").style.display = "block";
+    if (chefSamuraiLevel >= 1) document.getElementById("chefSamuraiImage").style.display = "block";
+
     const img = document.getElementById("soundImage");
     const sound = document.getElementById("sound");
 
@@ -629,6 +661,12 @@ function loadGame() {
             }
         });
     }
+
+    if (chefGirlLevel >= 1) document.getElementById("chefGirlImage").style.display = "block";
+    if (chefPandaLevel >= 1) document.getElementById("chefPandaImage").style.display = "block";
+    if (chefCatLevel >= 1) document.getElementById("chefCatImage").style.display = "block";
+    if (chefCookLevel >= 1) document.getElementById("chefCookImage").style.display = "block";
+    if (chefSamuraiLevel >= 1) document.getElementById("chefSamuraiImage").style.display = "block";
 }
 
 loadGame();

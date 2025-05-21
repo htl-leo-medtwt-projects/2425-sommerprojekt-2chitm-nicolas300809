@@ -751,3 +751,42 @@ body.fever-mode {
 .upgrade p {
     margin: 5px 0;
 }
+
+#sushiClickScreen {
+    position: relative;
+}
+
+.chefs {
+    display: none;
+    position: absolute;
+    width: 100px;
+    height: auto;
+    animation: wippen 2s ease-in-out infinite;
+}
+
+@keyframes wippen {
+    0%   { transform: rotate(-3deg); }
+    50%  { transform: rotate(3deg); }
+    100% { transform: rotate(-3deg); }
+  }
+
+#chefGirlImage {
+    top: 10%;
+    left: 15%;
+}
+#chefPandaImage {
+    bottom: 25%;
+    left: 8%;
+}
+#chefCatImage {
+    top: 15%;
+    right: 5%;
+}
+#chefCookImage {
+    bottom: 18%;
+    right: 8%;
+}
+#chefSamuraiImage {
+    top: 28%;
+    left: 10%;
+}
