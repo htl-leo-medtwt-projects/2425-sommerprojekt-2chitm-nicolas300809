@@ -56,7 +56,7 @@ document.getElementById('chefCatImage').addEventListener('mouseenter', (e) => {
 
 document.getElementById('chefCookImage').addEventListener('mouseenter', (e) => {
     showTooltip(e, `
-        <strong>Fire Chef</strong><br>
+        <strong>Chef Cook</strong><br>
         Level: ${chefCookLevel}<br>
         ${chefTooltips[3]}
     `);
@@ -205,12 +205,18 @@ const sushiPrices = [1000, 250000, 25000000, 1000000000, 2500000000, 10000000000
 const sushiMultipliers = [1, 2, 10, 100, 500, 1000];
 const sushiBought = [true, false, false, false, false, false];
 
-function clickSushi() {
+function clickSushi(event) {
+    const clickX = event ? event.clientX : window.innerWidth / 2;
+    const clickY = event ? event.clientY : window.innerHeight / 2;
+    
     let sushiGain = sushiPerClick;
-
-    if (Math.random() < critChance) sushiGain *= critMultiplier;
+    const isCritical = Math.random() < critChance;
+    
+    if (isCritical) sushiGain *= critMultiplier;
     if (feverActive) sushiGain *= 2;
-
+    
+    createClickParticles(clickX, clickY, isCritical);
+    
     sushiCount += sushiGain;
     updateUI();
     saveGame();
@@ -725,4 +731,35 @@ function showNotification(message) {
         notification.classList.add("fade-out");
         setTimeout(() => notification.remove(), 500);
     }, 2000);
+}
+
+//Function mit Hilfe von ChatGPT
+function createClickParticles(x, y, isCritical) {
+    const particleCount = isCritical ? 15 : 8;
+    const particles = [];
+    
+    for(let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.className = `particle ${isCritical ? 'critical' : ''}`;
+        
+        const sushiTypes = Math.min(6, currentSushiIndex + 1);
+        const randomSushi = Math.floor(Math.random() * sushiTypes) + 1;
+        p.style.backgroundImage = `url(media/sushi${randomSushi}.png)`;
+        
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 50 + Math.random() * 50;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        
+        p.style.setProperty('--tx', `${tx}px`);
+        p.style.setProperty('--ty', `${ty}px`);
+        p.style.left = `${x - 5}px`;
+        p.style.top = `${y - 5}px`;
+        
+        document.body.appendChild(p);
+        
+        setTimeout(() => {
+            p.remove();
+        }, 1000);
+    }
 }
