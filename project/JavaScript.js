@@ -30,6 +30,46 @@ function hideTooltip(event) {
     element.removeEventListener("mouseleave", hideTooltip);
 }
 
+document.getElementById('chefGirlImage').addEventListener('mouseenter', (e) => {
+    showTooltip(e, `
+        <strong>Chef Girl</strong><br>
+        Level: ${chefGirlLevel}<br>
+        ${chefTooltips[0]}
+    `);
+});
+
+document.getElementById('chefPandaImage').addEventListener('mouseenter', (e) => {
+    showTooltip(e, `
+        <strong>Chef Panda</strong><br>
+        Level: ${chefPandaLevel}<br>
+        ${chefTooltips[1]}
+    `);
+});
+
+document.getElementById('chefCatImage').addEventListener('mouseenter', (e) => {
+    showTooltip(e, `
+        <strong>Chef Cat</strong><br>
+        Level: ${chefCatLevel}<br>
+        ${chefTooltips[2]}
+    `);
+});
+
+document.getElementById('chefCookImage').addEventListener('mouseenter', (e) => {
+    showTooltip(e, `
+        <strong>Fire Chef</strong><br>
+        Level: ${chefCookLevel}<br>
+        ${chefTooltips[3]}
+    `);
+});
+
+document.getElementById('chefSamuraiImage').addEventListener('mouseenter', (e) => {
+    showTooltip(e, `
+        <strong>Chef Samurai</strong><br>
+        Level: ${chefSamuraiLevel}<br>
+        ${chefTooltips[4]}
+    `);
+});
+
 const chefTooltips = [
     "Increases your sushi per click by 20%",
     "Increases the chance of critical hits by 5%",
