@@ -828,3 +828,10 @@ body.fever-mode {
         opacity: 0;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .content {
+        display: flex;
+        flex-direction: column;
+    }
+  }
