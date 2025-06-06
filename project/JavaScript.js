@@ -176,7 +176,7 @@ let upgradeIndexZen = 1;
 let currentSushiIndex = 0;
 let originalSushiPerClick = 1;
 
-const sushiPrices = [1000, 250000, 25000000, 1000000000, 2500000000, 1000000000000];
+const sushiPrices = [1000, 25000, 250000, 1000000, 2500000, 1000000000];
 const sushiMultipliers = [1, 2, 10, 100, 500, 1000];
 const sushiBought = [true, false, false, false, false, false];
 

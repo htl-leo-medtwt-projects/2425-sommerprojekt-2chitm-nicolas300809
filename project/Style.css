@@ -833,8 +833,11 @@ body.fever-mode {
     .content {
         display: flex;
         flex-direction: column;
+        overflow: scroll;
+        height: auto;
     }
-    body{
-        overflow: auto;
+    #sushiClickScreen{
+        overflow: scroll;
+        height: 90vh;
     }
   }
